@@ -3,13 +3,16 @@ library(fGarch)
 library(rugarch)
 library(forecast)
 library(tseries)
+#数据载入
 data1 <- read_csv("data1.csv", col_types = cols(time = col_date(format = "%Y/%m/%d")))
 data2 <- read_csv("data2.csv", col_types = cols(time = col_date(format = "%Y/%m/%d")))
+#试图分析促销有没有影响
 plot(data1$time,data1$number,type='l',xlab="time",ylab="new users")
 lm1 <- lm(data1$number~data1$big+data1$small)
 plot(data2$time,data2$number,type='l',xlab="time",ylab="new users")
 lm2 <- lm(data2$number~data2$big+data2$small)
 lm3 <- lm(data2$number~data2$discount)
+#转换成时间序列并应用ARIMA模型
 ts1 <- ts(data1$number,frequency = 12,start = c(2004,1))
 plot.ts(ts1)
 plot.ts(diff(ts1))
