@@ -25,13 +25,14 @@ plot(forecast(number.forecast),shadecols='oldstyle')
 adf.test(diff(ts1))
 #training
 data3 <- read_csv("data3.csv", col_types = cols(time = col_date(format = "%Y/%m/%d")))
-ts2 <- ts(data3$number,frequency = 12,start = c(2004,1))
+ts2 <- ts(data3$number[1:189],frequency = 12,start = c(2004,1))
 plot.ts(ts2)
 plot.ts(diff(ts2))
 acf(ts2)
 pacf(ts2)
 number.forecast.2 = auto.arima(ts2)
 number.forecast.2
+adf.test(diff(ts2))
 forecast(number.forecast.2)
 plot(forecast(number.forecast.2),shadecols='oldstyle')
 
